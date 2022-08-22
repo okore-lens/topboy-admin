@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { ref, push, set } from "firebase/database";
-import db from "../../firebase";
 import "./Services.scss";
-import ServiceCard from "../cards/serviceCard/ServiceCard";
+import ServiceCard from "../../cards/serviceCard/ServiceCard";
 
 const Services = () => {
   const [formValue, setFormValue] = useState({
@@ -17,22 +15,19 @@ const Services = () => {
   };
 
   // push data to firebase
-  const pushServices = () => {
-    const l = Math.floor(Math.random() * 100);
+  const submitHandler = async (ev) => {
+    const response = await fetch(
+      "https://topboy-nation-default-rtdb.europe-west1.firebasedatabase.app/Services.json",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          serviceName: formValue.name,
+          serviceDescription: formValue.description,
+        }),
+      }
+    );
 
-    const serviceList = ref(db, "Services/" + l);
-    const newServiceList = push(serviceList);
-    set(serviceList, {
-      serviceName: formValue.name,
-      serviceDescription: formValue.description,
-    });
-  };
-
-  const submitHandler = (ev) => {
-    ev.preventDefault();
-    pushServices();
-
-    setFormValue({ name: "", description: "" });
+    setFormValue({ name: "", location: "", date: "", month: "" });
   };
 
   //  Fetches the event details from firebase

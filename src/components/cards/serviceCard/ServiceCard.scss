@@ -1,7 +1,12 @@
 .ServiceCard {
   width: 100%;
+  background-color: #9f919185;
   td {
     border: 1px solid #ddd;
     padding: 8px;
+  }
+  &:hover {
+    cursor: pointer;
+    background-color: #91680ecf;
   }
 }

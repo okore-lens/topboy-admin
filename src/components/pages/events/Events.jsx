@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import EventCard from "../cards/eventCard/EventCard";
-import { ref, push, set } from "firebase/database";
-import db from "../../firebase";
+import EventCard from "../../cards/eventCard/EventCard";
+
 import "./Events.scss";
 
 const Events = () => {
@@ -19,24 +18,19 @@ const Events = () => {
   };
 
   // push data to firebase
-  const pushEvents = () => {
-    // console.log(events);
-    const l = Math.floor(Math.random() * 100);
-
-    const eventList = ref(db, "Events/" + l);
-    const newEventList = push(eventList);
-    // console.log(eventList);
-    set(eventList, {
-      venueName: formValue.name,
-      month: formValue.month,
-      location: formValue.location,
-      day: formValue.date,
-    });
-  };
-
-  const submitHandler = (ev) => {
-    // ev.preventDefault();
-    pushEvents();
+  const submitHandler = async (ev) => {
+    const response = await fetch(
+      "https://topboy-nation-default-rtdb.europe-west1.firebasedatabase.app/Events.json",
+      {
+        method: "POST",
+        body: JSON.stringify({
+          venueName: formValue.name,
+          month: formValue.month,
+          location: formValue.location,
+          day: formValue.date,
+        }),
+      }
+    );
 
     setFormValue({ name: "", location: "", date: "", month: "" });
   };
