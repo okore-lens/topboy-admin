@@ -12,6 +12,12 @@ const Events = () => {
   });
   const [events, setEvents] = useState([]);
 
+  //images demo
+  // const imageRetriever = async () => {
+  //   const response = await fetch("gs://topboy-nation.appspot.com/");
+  //   console.log(response);
+  // };
+
   //   Handling Input Values
   const changeHandler = (ev) => {
     setFormValue({ ...formValue, [ev.target.name]: ev.target.value });
@@ -65,6 +71,7 @@ const Events = () => {
     fetchEvents().catch((error) => {
       alert(error.message);
     });
+    imageRetriever();
   }, []);
 
   // console.log(events);
@@ -124,7 +131,8 @@ const Events = () => {
           <tbody>
             {events.map((event, idx) => (
               <EventCard
-                key={event.index}
+                key={event.id}
+                dbId={event.id}
                 venueName={event.venueName}
                 id={idx + 1}
                 location={event.location}

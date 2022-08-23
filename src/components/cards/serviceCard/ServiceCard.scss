@@ -1,13 +1,30 @@
 .ServiceCard {
   width: 100%;
-  background-color: #9f919185;
-  text-align: start;
+  position: relative;
   td {
     border: 1px solid #ddd;
     padding: 8px;
   }
+  .delete {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+    background-color: #111010b4;
+    color: #fff;
+    &:hover {
+      background-color: #fd0202;
+    }
+  }
   &:hover {
-    cursor: pointer;
-    background-color: #91680ecf;
+    // background-color: #91680ecf;
+    .delete {
+      cursor: pointer;
+      display: block;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
 }

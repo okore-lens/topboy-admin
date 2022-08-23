@@ -99,6 +99,7 @@ const Services = () => {
             {services.map((service, idx) => (
               <ServiceCard
                 key={service.id}
+                dbId={service.id}
                 serviceName={service.serviceName}
                 id={idx + 1}
                 serviceDescription={service.serviceDescription}

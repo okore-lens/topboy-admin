@@ -7,14 +7,16 @@ import Services from "./components/layout/pages/services/Services";
 function App() {
   return (
     <div className="App">
-      <h1>Topboy Admin</h1>
-      <Navbar />
-      <Routes>
-        <Route path="/" element={<Events />} />
-        <Route path="/services" element={<Services />} />
-      </Routes>
+      <div className="nav">
+        <Navbar />
+      </div>
 
-      {/* <Images /> */}
+      <div className="section">
+        <Routes>
+          <Route path="/" element={<Events />} />
+          <Route path="/services" element={<Services />} />
+        </Routes>
+      </div>
     </div>
   );
 }

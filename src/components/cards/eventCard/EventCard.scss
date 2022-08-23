@@ -11,16 +11,20 @@
     left: 50%;
     transform: translate(-50%, -50%);
     display: none;
-    background-color: #c42828;
-    width: 100%;
-    height: 100%;
+    background-color: #000000;
     color: #fff;
+    &:hover {
+      background-color: #ff0000;
+    }
   }
   &:hover {
-    cursor: pointer;
     // background-color: #91680ecf;
     .delete {
+      cursor: pointer;
       display: block;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 }
