@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./Services.scss";
-import ServiceCard from "../../cards/serviceCard/ServiceCard";
+import ServiceCard from "../../../cards/serviceCard/ServiceCard";
 
 const Services = () => {
   const [formValue, setFormValue] = useState({
@@ -96,11 +96,11 @@ const Services = () => {
             </tr>
           </thead>
           <tbody>
-            {services.map((service) => (
+            {services.map((service, idx) => (
               <ServiceCard
                 key={service.id}
                 serviceName={service.serviceName}
-                id={service.id}
+                id={idx + 1}
                 serviceDescription={service.serviceDescription}
               />
             ))}

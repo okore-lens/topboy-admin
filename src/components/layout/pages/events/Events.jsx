@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import EventCard from "../../cards/eventCard/EventCard";
+import EventCard from "../../../cards/eventCard/EventCard";
 
 import "./Events.scss";
 
@@ -122,11 +122,11 @@ const Events = () => {
             </tr>
           </thead>
           <tbody>
-            {events.map((event) => (
+            {events.map((event, idx) => (
               <EventCard
-                key={event.id}
+                key={event.index}
                 venueName={event.venueName}
-                id={event.id}
+                id={idx + 1}
                 location={event.location}
                 date={`${event.day}  ${event.month}`}
               />
