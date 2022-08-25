@@ -8,9 +8,11 @@ const Services = () => {
     description: "",
   });
   const [services, setServices] = useState([]);
+  const [disable, setDisable] = useState(true);
 
   //   Handling Input Values
   const changeHandler = (ev) => {
+    setDisable(false);
     setFormValue({ ...formValue, [ev.target.name]: ev.target.value });
   };
 
@@ -83,7 +85,9 @@ const Services = () => {
               />
             </div>
           </div>
-          <button onClick={submitHandler}>SUBMIT </button>
+          <button disabled={disable} onClick={submitHandler}>
+            SUBMIT{" "}
+          </button>
         </form>
       </div>
       <div className="services-body">

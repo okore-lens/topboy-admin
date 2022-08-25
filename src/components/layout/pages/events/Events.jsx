@@ -11,15 +11,11 @@ const Events = () => {
     month: "",
   });
   const [events, setEvents] = useState([]);
-
-  //images demo
-  // const imageRetriever = async () => {
-  //   const response = await fetch("gs://topboy-nation.appspot.com/");
-  //   console.log(response);
-  // };
+  const [disable, setDisable] = useState(true);
 
   //   Handling Input Values
   const changeHandler = (ev) => {
+    setDisable(false);
     setFormValue({ ...formValue, [ev.target.name]: ev.target.value });
   };
 
@@ -71,7 +67,7 @@ const Events = () => {
     fetchEvents().catch((error) => {
       alert(error.message);
     });
-    imageRetriever();
+    // imageRetriever();
   }, []);
 
   // console.log(events);
@@ -115,7 +111,9 @@ const Events = () => {
               />
             </div>
           </div>
-          <button onClick={submitHandler}>SUBMIT </button>
+          <button disabled={disable} onClick={submitHandler}>
+            SUBMIT{" "}
+          </button>
         </form>
       </div>
       <div className="events-body">
