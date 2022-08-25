@@ -1,7 +1,7 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import db from "../../../firebase";
+import { db } from "../../../firebase";
 
 import "./ServiceCard.scss";
 

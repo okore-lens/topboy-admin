@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import db from "../../../firebase";
+import { db } from "../../../firebase";
 
 import "./EventCard.scss";
 
@@ -18,6 +18,7 @@ const EventCard = (props) => {
       <td>{props.venueName}</td>
       <td>{props.location}</td>
       <td>{props.date} </td>
+      <td>{props.poster}</td>
       <td className="delete" onClick={handleEventDelete}>
         <FontAwesomeIcon icon={faTrashAlt} />
         Delete
