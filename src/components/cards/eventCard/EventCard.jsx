@@ -6,11 +6,11 @@ import { db } from "../../../firebase";
 import "./EventCard.scss";
 
 const EventCard = (props) => {
-  const handleEventDelete = () => {
-    let child = db.ref("Events/" + props.dbId);
-    child.remove();
-    alert("Successfully Deleted.Refresh the page");
-  };
+  // const handleEventDelete = () => {
+  //   let child = db.ref("Events/" + props.dbId);
+  //   child.remove();
+  //   alert("Successfully Deleted.Refresh the page");
+  // };
 
   return (
     <tr className="EventCard">
@@ -18,8 +18,8 @@ const EventCard = (props) => {
       <td>{props.venueName}</td>
       <td>{props.location}</td>
       <td>{props.date} </td>
-      <td>{props.poster}</td>
-      <td className="delete" onClick={handleEventDelete}>
+      <td><img alt={props.poster} src={`http://localhost:8000/images/${props.poster}`}></img></td>
+      <td className="delete" onClick={() => props.deleteEvent(props.dbId)}>
         <FontAwesomeIcon icon={faTrashAlt} />
         Delete
       </td>

@@ -103,6 +103,22 @@ const Events = () => {
     // setEvents(loadedEvents);
   }
 
+  const deleteEvent = async (eventId) => {
+    try {
+      setIsLoading(true);
+      const response = await fetch(`http://localhost:8000/store/event/${eventId}`, { method: 'DELETE', headers: { 'Content-Type': 'application/json' } } );
+      const responseData = await response.json();
+      if(!responseData.id) {
+        throw new Error('An Error has occured');
+      }
+      setEvents(prevEvents => prevEvents.filter((event) => event.id !== responseData.id));
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   useEffect(() => {
     fetchEvents()
     // imageRetriever();
@@ -139,14 +155,7 @@ const Events = () => {
                   value={formValue.date}
                   onChange={changeHandler}
                   placeholder="Event Date"
-                />
-              </div>
-              <div className="input">
-                <input
-                  name="month"
-                  value={formValue.month}
-                  onChange={changeHandler}
-                  placeholder="Event Month"
+                  type='date'
                 />
               </div>
             </div>
@@ -187,13 +196,14 @@ const Events = () => {
           <tbody>
             {events.map((event, idx) => (
               <EventCard
+                deleteEvent={deleteEvent}
                 key={event.id}
                 dbId={event.id}
                 venueName={event.name}
                 id={idx + 1}
                 location={event.venue}
                 date={event.dayMonth}
-                poster={`http://localhost:8000/images/${event.poster}`}
+                poster={event.poster}
               />
             ))}
           </tbody>
