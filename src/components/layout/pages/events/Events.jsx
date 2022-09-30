@@ -8,7 +8,6 @@ const Events = () => {
     name: "",
     location: "",
     date: "",
-    month: "",
   });
   const [events, setEvents] = useState([]);
   const [disable, setDisable] = useState(true);
@@ -21,9 +20,55 @@ const Events = () => {
     setFormValue({ ...formValue, [ev.target.name]: ev.target.value });
   };
 
+  const photoHandler = (ev) => {
+    setPhoto(ev.target.files[0]);
+  };
+
+  useEffect(() => {
+    if (
+      formValue.name.length !== 0 &&
+      formValue.location.length !== 0 &&
+      formValue.date.length !== 0 &&
+      !!photo
+    ) {
+      setDisable(false);
+    }
+  }, [formValue, photo]);
+
   // push events
   const submitHandler = async (ev) => {
     ev.preventDefault();
+    const formData = new FormData();
+    formData.append("name", formValue.name);
+    formData.append("dayMonth", formValue.date);
+    formData.append("venue", formValue.location);
+    formData.append("image", photo);
+    try {
+      setIsLoading(true);
+      const response = await fetch("http://localhost:8000/store/event", {
+        method: "POST",
+        body: formData,
+      });
+      const responseData = await response.json();
+      if (!response.ok) {
+        throw new Error("An error has occured");
+      }
+      console.log(responseData);
+      setEvents((prevEvents) => [
+        ...prevEvents,
+        {
+          name: responseData.name,
+          id: responseData.id,
+          venue: responseData.venue,
+          dayMonth: responseData.dayMonth,
+          poster: responseData.poster,
+        },
+      ]);
+    } catch (err) {
+      alert(err);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   //  Fetches the Events
@@ -98,7 +143,7 @@ const Events = () => {
               </div>
             </div>
             <label>
-              <input type="file" onChange={changeHandler} />
+              <input type="file" onChange={photoHandler} />
               <span>+</span>
             </label>
             <div className="output">

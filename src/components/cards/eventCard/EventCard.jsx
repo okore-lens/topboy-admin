@@ -10,7 +10,7 @@ const EventCard = (props) => {
       <td>{props.id}</td>
       <td>{props.venueName}</td>
       <td>{props.location}</td>
-      <td>{props.date} </td>
+      <td>{props.date}</td>
       <td>
         <img
           alt={props.poster}
