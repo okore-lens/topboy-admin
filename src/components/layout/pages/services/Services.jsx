@@ -17,49 +17,13 @@ const Services = () => {
   };
 
   // push data to firebase
-  const submitHandler = async (ev) => {
-    const response = await fetch(
-      "https://topboy-nation-default-rtdb.europe-west1.firebasedatabase.app/Services.json",
-      {
-        method: "POST",
-        body: JSON.stringify({
-          serviceName: formValue.name,
-          serviceDescription: formValue.description,
-        }),
-      }
-    );
+  const submitHandler = async (ev) => {};
 
-    setFormValue({ name: "", location: "", date: "", month: "" });
-  };
-
-  //  Fetches the event details from firebase
-  async function fetchServices() {
-    const response = await fetch(
-      "https://topboy-nation-default-rtdb.europe-west1.firebasedatabase.app/Services.json"
-    );
-
-    if (!response.ok) {
-      throw new Error("Something went wrong");
-    }
-
-    const responseData = await response.json();
-
-    const loadedServices = [];
-
-    for (const key in responseData) {
-      loadedServices.push({
-        id: key,
-        serviceDescription: responseData[key].serviceDescription,
-        serviceName: responseData[key].serviceName,
-      });
-    }
-    setServices(loadedServices);
-  }
+  //  Fetches the services
+  async function fetchServices() {}
 
   useEffect(() => {
-    fetchServices().catch((error) => {
-      alert(error.message);
-    });
+    fetchServices();
   }, []);
 
   return (

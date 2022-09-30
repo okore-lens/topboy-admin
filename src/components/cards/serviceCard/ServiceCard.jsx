@@ -1,16 +1,11 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
-import { db } from "../../../firebase";
 
 import "./ServiceCard.scss";
 
 const ServiceCard = (props) => {
-  const handleServiceDelete = () => {
-    let child = db.ref("Services/" + props.dbId);
-    child.remove();
-    alert("Successfully Deleted.Refresh the page");
-  };
+  const handleServiceDelete = () => {};
   return (
     <tr className="ServiceCard">
       <td>{props.id}</td>
