@@ -17,6 +17,7 @@ const Events = () => {
   const [photo, setPhoto] = useState(null);
   const [error, setError] = useState(null);
   const [ok, setOk] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   //   Handling Input Values
   const changeHandler = (ev) => {
@@ -68,34 +69,42 @@ const Events = () => {
 
   //  Fetches the event details from firebase
   async function fetchEvents() {
-    const response = await fetch(
-      "https://topboy-nation-default-rtdb.europe-west1.firebasedatabase.app/Events.json"
-    );
-
-    if (!response.ok) {
-      throw new Error("Something went wrong");
+    try {
+      setIsLoading(true);
+      const response = await fetch('http://localhost:8000/store/event');
+      const responseData = await response.json();
+      setEvents(responseData.events);
+    } catch(err) {
+      console.log(err);
+    } finally {
+      setIsLoading(false);
     }
+    // const response = await fetch(
+    //   "https://topboy-nation-default-rtdb.europe-west1.firebasedatabase.app/Events.json"
+    // );
 
-    const responseData = await response.json();
+    // if (!response.ok) {
+    //   throw new Error("Something went wrong");
+    // }
 
-    const loadedEvents = [];
+    // const responseData = await response.json();
 
-    for (const key in responseData) {
-      loadedEvents.push({
-        id: key,
-        day: responseData[key].day,
-        location: responseData[key].location,
-        month: responseData[key].month,
-        venueName: responseData[key].venueName,
-      });
-    }
-    setEvents(loadedEvents);
+    // const loadedEvents = [];
+
+    // for (const key in responseData) {
+    //   loadedEvents.push({
+    //     id: key,
+    //     day: responseData[key].day,
+    //     location: responseData[key].location,
+    //     month: responseData[key].month,
+    //     venueName: responseData[key].venueName,
+    //   });
+    // }
+    // setEvents(loadedEvents);
   }
 
   useEffect(() => {
-    fetchEvents().catch((error) => {
-      alert(error.message);
-    });
+    fetchEvents()
     // imageRetriever();
   }, []);
 
@@ -164,7 +173,8 @@ const Events = () => {
         </div>
       </div>
       <div className="events-body">
-        <table>
+        {isLoading && <p>Loading...</p>}
+        {!isLoading && <table>
           <thead>
             <tr className="table-heading">
               <td>No</td>
@@ -179,15 +189,15 @@ const Events = () => {
               <EventCard
                 key={event.id}
                 dbId={event.id}
-                venueName={event.venueName}
+                venueName={event.name}
                 id={idx + 1}
-                location={event.location}
-                date={`${event.day}  ${event.month}`}
-                poster={event.url}
+                location={event.venue}
+                date={event.dayMonth}
+                poster={`http://localhost:8000/images/${event.poster}`}
               />
             ))}
           </tbody>
-        </table>
+        </table>}
       </div>
     </div>
   );
