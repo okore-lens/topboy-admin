@@ -38,22 +38,25 @@ const Events = () => {
   // push events
   const submitHandler = async (ev) => {
     ev.preventDefault();
-    const formData = new FormData();
-    formData.append("name", formValue.name);
-    formData.append("dayMonth", formValue.date);
-    formData.append("venue", formValue.location);
-    formData.append("image", photo);
     try {
       setIsLoading(true);
       const response = await fetch("http://localhost:8000/store/event", {
         method: "POST",
-        body: formData,
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: formValue.name, dayMonth: formValue.date, venue: formValue.location }),
       });
       const responseData = await response.json();
       if (!response.ok) {
         throw new Error("An error has occured");
       }
       console.log(responseData);
+      const imageFormData = new FormData();
+      imageFormData.append("image", photo);
+      const imageResponse = await fetch(`http://localhost:8000/store/event/image/${responseData.id}`, { method: 'POST', body: imageFormData });
+      if (!imageResponse.ok) {
+        throw new Error('An image rror has occured');
+      }
+      const imageData = await imageResponse.json();
       setEvents((prevEvents) => [
         ...prevEvents,
         {
@@ -61,7 +64,7 @@ const Events = () => {
           id: responseData.id,
           venue: responseData.venue,
           dayMonth: responseData.dayMonth,
-          poster: responseData.poster,
+          poster: imageData.poster,
         },
       ]);
     } catch (err) {

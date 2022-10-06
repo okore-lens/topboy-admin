@@ -12,6 +12,9 @@ const Navbar = () => {
       <span className="nav-item">
         <Link to="/services">Services</Link>
       </span>
+      <span className="nav-item">
+        <Link to="/mixes">Mixes</Link>
+      </span>
     </div>
   );
 };

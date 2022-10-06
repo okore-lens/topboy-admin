@@ -1,0 +1,17 @@
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    flex-direction: column;
+}
+
+.topContainer {
+    padding: 3rem;
+    width: 40%;
+    background-image: url('../../../../assets/events/event-bg.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    
+}
